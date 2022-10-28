@@ -1,23 +1,22 @@
 import {fetchImages} from './fetchImages.js' 
 import Notiflix from 'notiflix';
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
-// const Lightbox = new SimpleLightbox('.gallery a', {
-//   captionsData: 'alt',
-//   captionDelay: 250,
-// });
+var lightbox = new SimpleLightbox('.gallery a', {
+  // captionDelay: 250,
+});
 
 const formEl = document.querySelector('#search-form');
 const galleryEl = document.querySelector('.gallery');
 const buttonSubmit = document.querySelector('.submit-button')
 // const buttonLoadMore = document.querySelector('.load-more');
 // buttonLoadMore.classList.add('visually-hidden');
+const perPage = 40;
 
 let query = '';
 let page = 1;
-let SimpleLightbox;
-const perPage = 40;
+// let SimpleLightbox;
 
 formEl.addEventListener('submit', onSearch);
 buttonSubmit.addEventListener('click', renderImagesMore);
@@ -41,7 +40,8 @@ function onSearch(element) {
           onNoFoundMatch();
         } else {
           renderImages(data.hits);
-          SimpleLightbox = new SimpleLightbox('.gallery a').refresh();
+          // SimpleLightbox = new SimpleLightbox('.gallery a').refresh();
+          lightbox.refresh();
           console.log(data.hits);
           onFoundMatch(data);
         }
@@ -54,8 +54,8 @@ function onSearch(element) {
 function renderImages(images) {
   const markup = images
   .map(image => {
-      return `      <a class="photo-card__link" href="${image.largeImageURL}">
-      <div class="photo-card">
+      return `<div class="photo-card">
+      <a class="photo-card__link" href="${image.largeImageURL}">
       <img class="photo-card__image" src="${image.webformatURL}" alt="${image.tags}" loading="lazy" /></a>
       <div class="info">
         <p class="info-item">
@@ -89,7 +89,8 @@ function renderImagesMore() {
   fetchImages(query, page, perPage)
     .then(({ data }) => {
       renderImages(data.hits);
-      SimpleLightbox = new SimpleLightbox('.gallery a').refresh();
+      // SimpleLightbox = new SimpleLightbox('.gallery a').refresh();
+      lightbox.refresh();
       console.log(data.hits);
 
       const totalPages = Math.ceil(data.totalHits / perPage);
@@ -138,7 +139,8 @@ function infiniteScroll() {
     fetchImages(query, page, perPage)
       .then(({ data }) => {
         renderImages(data.hits);
-        SimpleLightbox = new SimpleLightbox('.gallery a').refresh();
+        // SimpleLightbox = new SimpleLightbox('.gallery a').refresh();
+        lightbox.refresh();
         console.log(data.hits);
 
         const totalPages = Math.ceil(data.totalHits / perPage);
