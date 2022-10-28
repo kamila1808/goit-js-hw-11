@@ -101,11 +101,10 @@ button {
 .photo-card__link {
   height: 30vh;
   width: 45vh;
-
 }
 
-.photo-card__link:hover,
-.photo-card__link:focus {
+.photo-card:hover,
+.photo-card:focus {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
