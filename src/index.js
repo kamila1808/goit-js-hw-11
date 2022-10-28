@@ -11,12 +11,12 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 const formEl = document.querySelector('#search-form');
 const galleryEl = document.querySelector('.gallery');
 const buttonSubmit = document.querySelector('.submit-button')
-const buttonLoadMore = document.querySelector('.load-more');
+// const buttonLoadMore = document.querySelector('.load-more');
 // buttonLoadMore.classList.add('visually-hidden');
 
 let query = '';
 let page = 1;
-let simpleLightBox;
+let SimpleLightbox;
 const perPage = 40;
 
 formEl.addEventListener('submit', onSearch);
@@ -41,7 +41,7 @@ function onSearch(element) {
           onNoFoundMatch();
         } else {
           renderImages(data.hits);
-          simpleLightBox = new SimpleLightbox('.gallery a').refresh();
+          SimpleLightbox = new SimpleLightbox('.gallery a').refresh();
           console.log(data.hits);
           onFoundMatch(data);
         }
@@ -89,7 +89,7 @@ function renderImagesMore() {
   fetchImages(query, page, perPage)
     .then(({ data }) => {
       renderImages(data.hits);
-      simpleLightBox = new SimpleLightbox('.gallery a').refresh();
+      SimpleLightbox = new SimpleLightbox('.gallery a').refresh();
       console.log(data.hits);
 
       const totalPages = Math.ceil(data.totalHits / perPage);
@@ -138,7 +138,7 @@ function infiniteScroll() {
     fetchImages(query, page, perPage)
       .then(({ data }) => {
         renderImages(data.hits);
-        simpleLightBox = new SimpleLightbox('.gallery a').refresh();
+        SimpleLightbox = new SimpleLightbox('.gallery a').refresh();
         console.log(data.hits);
 
         const totalPages = Math.ceil(data.totalHits / perPage);
