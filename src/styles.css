@@ -105,7 +105,7 @@ button {
 
 .photo-card:hover,
 .photo-card:focus {
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 14px 28px rgba(169, 125, 69, 0.25), 0 10px 10px rgba(182, 119, 25, 0.51);
 }
 
 .info-item {
@@ -114,10 +114,6 @@ button {
   align-items: center;
 }
 
-/* .load-more{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-} */
+.load-more{
+  display: none;
+}

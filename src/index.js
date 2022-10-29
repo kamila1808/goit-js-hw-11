@@ -8,16 +8,14 @@ var lightbox = new SimpleLightbox('.gallery a', {});
 const formEl = document.querySelector('#search-form');
 const galleryEl = document.querySelector('.gallery');
 const buttonSubmit = document.querySelector('.submit-button')
-// const buttonLoadMore = document.querySelector('.load-more');
-// buttonLoadMore.classList.add('visually-hidden');
+const buttonLoadMore = document.querySelector('.load-more')
 const perPage = 40;
 
 let query = '';
 let page = 1;
-// let SimpleLightbox;
 
 formEl.addEventListener('submit', onSearch);
-buttonSubmit.addEventListener('click', renderImagesMore);
+buttonLoadMore.addEventListener('click', renderImagesMore);
 window.addEventListener('scroll', infiniteScroll);
 
 function onSearch(element) {
@@ -26,10 +24,8 @@ function onSearch(element) {
   page = 1;
   query = element.currentTarget.searchQuery.value.trim();
   galleryEl.innerHTML = '';
-  // buttonLoadMore.classList.add('visualy-hidden');
 
   if (query === '') {
-    // ifNoEmptySearchAlert();
     return;
   } else {
     fetchImages(query, page, perPage)
@@ -38,10 +34,10 @@ function onSearch(element) {
           onNoFoundMatch();
         } else {
           renderImages(data.hits);
-          // SimpleLightbox = new SimpleLightbox('.gallery a').refresh();
-          lightbox.refresh();
-          console.log(data.hits);
           onFoundMatch(data);
+          lightbox.refresh();
+          formEl.reset();
+          console.log(data.hits);
         }
       })
       .catch(error => console.log(error));
@@ -80,21 +76,19 @@ function renderImages(images) {
 }
 
 
-// следующая страница
+// следующая страница при прокрутке
 function renderImagesMore() {
   page += 1;
 
   fetchImages(query, page, perPage)
     .then(({ data }) => {
       renderImages(data.hits);
-      // SimpleLightbox = new SimpleLightbox('.gallery a').refresh();
       lightbox.refresh();
-      console.log(data.hits);
+      // console.log(data.hits);
 
       const totalPages = Math.ceil(data.totalHits / perPage);
 
       if (page > totalPages) {
-        // buttonLoadMore.classList.add('visualy-hidden');
         onEndOfSearch();
       }
     })
@@ -137,7 +131,6 @@ function infiniteScroll() {
     fetchImages(query, page, perPage)
       .then(({ data }) => {
         renderImages(data.hits);
-        // SimpleLightbox = new SimpleLightbox('.gallery a').refresh();
         lightbox.refresh();
         console.log(data.hits);
 
