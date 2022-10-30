@@ -89,7 +89,7 @@ function renderImagesMore() {
       const totalPages = Math.ceil(data.totalHits / perPage);
 
       if (page > totalPages) {
-        onEndOfSearch();
+        // onEndOfSearch();
       }
     })
     .catch(error => console.log(error));
